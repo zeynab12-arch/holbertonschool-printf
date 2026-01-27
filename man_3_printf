@@ -1,1 +1,18 @@
+.TH PRINTF 3 "27 Jan 2026" "1.0" "Holberton School C Library"
+.SH NAME
+printf \- prints formatted output to stdout
+.SH SYNOPSIS
+#include <stdio.h>
 
+int printf(const char *format, ...);
+.SH DESCRIPTION
+The \fBprintf\fR function sends formatted output to \fBstdout\fR.  
+The function supports conversion specifiers for integers, characters, strings, and more.  
+The number and type of arguments must correspond to the format string.
+.SH RETURN VALUE
+Upon successful return, \fBprintf\fR returns the number of characters printed (excluding the null byte used to end output to strings).  
+If an output error is encountered, a negative value is returned.
+.SH EXAMPLE
+printf("Hello, %s!\n", "world"); 
+.SH SEE ALSO
+fprintf(3), sprintf(3), snprintf(3)
