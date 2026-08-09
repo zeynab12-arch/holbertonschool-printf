@@ -1,18 +1,70 @@
-.TH PRINTF 3 "27 Jan 2026" "1.0" "Holberton School C Library"
+.TH _PRINTF 3 "2026-01-11" "1.0" "Custom _printf Function"
 .SH NAME
-printf \- prints formatted output to stdout
-.SH SYNOPSIS
-#include <stdio.h>
+_printf \- formatted output to stdout
 
-int printf(const char *format, ...);
+.SH SYNOPSIS
+.B "#include <stdarg.h>"
+.sp
+.B int _printf(const char *format, ...);
+
 .SH DESCRIPTION
-The \fBprintf\fR function sends formatted output to \fBstdout\fR.  
-The function supports conversion specifiers for integers, characters, strings, and more.  
-The number and type of arguments must correspond to the format string.
+The
+.B _printf
+function produces output on the standard output (stdout) according to the format string
+.B format
+and additional arguments. It behaves similarly to the standard C
+.B printf
+function but supports only a limited set of conversion specifiers.
+
+Currently supported conversion specifiers:
+.IP "\fB%d\fR, \fB%i\fR"
+Prints a signed decimal integer.
+.IP "\fB%c\fR"
+Prints a single character.
+.IP "\fB%s\fR"
+Prints a null-terminated string. If the string is NULL, "(null)" is printed.
+.IP "\fB%%\fR"
+Prints a literal percent sign '%'.
+
+Unsupported features:
+.RS
+- Flags (e.g., '+', '0', '#', ' ')
+- Field width
+- Precision
+- Length modifiers (e.g., 'l', 'h')
+- Conversion specifiers other than %d, %i, %c, %s, %%
+.RE
+
+If a trailing '%' appears in the format string without a following valid specifier, _printf returns -1 and prints nothing.
+
 .SH RETURN VALUE
-Upon successful return, \fBprintf\fR returns the number of characters printed (excluding the null byte used to end output to strings).  
-If an output error is encountered, a negative value is returned.
-.SH EXAMPLE
-printf("Hello, %s!\n", "world"); 
-.SH SEE ALSO
-fprintf(3), sprintf(3), snprintf(3)
+On success, _printf returns the total number of characters printed.  
+If an error occurs (e.g., format string is NULL, or a trailing '%' is present), it returns -1.
+
+.SH EXAMPLES
+Print an integer and a string:
+.RS
+.nf
+_printf("Number: %d, String: %s\n", 42, "Hello");
+.fi
+.RE
+
+Print a literal percent sign:
+.RS
+.nf
+_printf("Progress: 100%% complete\n");
+.fi
+.RE
+
+Print a character:
+.RS
+.nf
+_printf("First letter: %c\n", 'A');
+.fi
+.RE
+
+.SH AUTHOR
+Implemented by Tural Gasimov, 2026.
+
+.SH NOTES
+This implementation is designed for educational purposes, following the simplified requirements of the Holberton `_printf` project. It uses a dynamic buffer internally to safely handle long strings.
